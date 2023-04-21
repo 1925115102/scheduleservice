@@ -1,10 +1,20 @@
 package edu.iu.c322.project.scheduleservice.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+
+@Entity
 public class Request {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     int id;
-    String command;
-    String courseName;
-    String reason;
+
+    int courseId;
+
+    @JsonIgnore
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "student_id")
+    Student student;
 
     public int getId() {
         return id;
@@ -14,27 +24,14 @@ public class Request {
         this.id = id;
     }
 
-    public String getCommand() {
-        return command;
+    public int getCourseId() {
+        return courseId;
     }
 
-    public void setCommand(String command) {
-        this.command = command;
+    public void setCourseId(int courseId) {
+        this.courseId = courseId;
     }
 
-    public String getCourseName() {
-        return courseName;
-    }
 
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
-    }
 
-    public String getReason() {
-        return reason;
-    }
-
-    public void setReason(String reason) {
-        this.reason = reason;
-    }
 }
